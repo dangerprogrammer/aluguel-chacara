@@ -1,4 +1,3 @@
-import SocketComponent from '@/scripts/socket-app'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -12,13 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <script src="/socket.io/socket.io.js"></script>
-      </head>
-      <body className={inter.className}>
-        {children}
-        <script src="@/scripts/socket-app.js"/>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
