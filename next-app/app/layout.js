@@ -1,4 +1,4 @@
-import SocketComponent from '@/scripts/SocketComponent'
+import SocketComponent from '@/scripts/socket-app'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -14,10 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         {children}
-        <script>
-          return console.log("opa!");
-          const socket = io();
-      </script>
+        <script src="@/scripts/socket-app.js"/>
       </body>
     </html>
   )
