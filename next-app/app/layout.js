@@ -12,6 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script src="/socket.io/socket.io.js"></script>
+      </head>
       <body className={inter.className}>
         {children}
         <script src="@/scripts/socket-app.js"/>
