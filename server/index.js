@@ -4,15 +4,15 @@ const io = require('socket.io')(server, {cors: {origin: 'http://localhost:3000'}
 
 const PORT = 3001;
 
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
 io.on('connection', socket => {
-    const {id} = socket;
-    console.log('Usuário conectado!', id);
+  console.log('Usuário conectado!', socket.id);
 
-    socket.on('disconnect', reason => {
-      console.log('Usuário desconectado!', id);
-    });
+  socket.on('disconnect', reason => {
+    console.log('Usuário desconectado!', socket.id);
+  });
+})
+;
+server.listen(PORT, () => {
+  console.clear();
+  console.log(`Server is running on port ${PORT}`);
 });
