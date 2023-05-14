@@ -7,7 +7,7 @@ function HomeContent({socket, setSocket}) {
         setSocket(socket);
     };
 
-    return <div onClick={() => loadSocket(socket)}>Carregar Socket</div>
+    return <h1>Opa!</h1>
 };
 
 export default HomeContent;
