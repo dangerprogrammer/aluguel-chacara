@@ -23,7 +23,7 @@ function Home() {
 
     initialize({
         client_id: "51626388269-udorhoviviu1ppa5163bvjj9k6cbhkaj.apps.googleusercontent.com",
-        callback: response => responseLogin(response, setSocket)
+        callback: response => responseLogin(response, socket, setSocket)
     });
 
     renderButton(googleLoginButton, buttonStyles);
@@ -39,15 +39,13 @@ function Home() {
   </>
 };
 
-function responseLogin(response) {
+function responseLogin(response, socket, setSocket) {
   const data = jwt_decode(response.credential), {email} = data, hasEmail = !!authUsers.find(authUser => authUser === email);
 
   if (hasEmail) loadSocket(socket, setSocket);
 };
 
 async function loadSocket(socket, setSocket) {
-  return console.log("carregar socket");
-
   socket ||= await io.connect('http://localhost:3001');
 
   setSocketProps(socket);
