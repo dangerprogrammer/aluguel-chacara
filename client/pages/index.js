@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function Home() {
   const [socket, setSocket] = useState(null),
-    homeArgs = {setSocket};
+    homeArgs = {socket, setSocket};
 
   return <>
   <Head>
