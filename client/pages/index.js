@@ -8,18 +8,10 @@ function Home() {
     homeArgs = {socket, setSocket};
 
   useEffect(() => {
-    const body = document.querySelector('body'),
-      parentButton = document.querySelector('#__next'),
-      googleLoginButton = document.createElement('div'),
-      googleLogin = document.createElement('script'),
-      hasButton = [...parentButton.children].find(child => child.id == 'googleLoginButton');
+    const googleLoginButton = document.querySelector('#googleLoginButton'),
+      parentButton = document.querySelector('#__next');
 
-    googleLoginButton.id = 'googleLoginButton';
-    googleLogin.src = '/tools/googleLogin.js';
-    if (!hasButton) {
-      parentButton.append(googleLoginButton);
-      body.append(googleLogin);
-    };
+    parentButton.appendChild(googleLoginButton);
   }, []);
 
   return <>
