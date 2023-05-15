@@ -6,13 +6,16 @@ import io from 'socket.io-client';
 
 function Home() {
   const [socket, setSocket] = useState(null),
+    [user, setUser] = useState(null),
     homeArgs = {socket, setSocket};
 
   useEffect(() => {
+    console.log("useEffect");
+
     const googleLoginButton = document.createElement('div'),
       parentButton = document.querySelector('#__next');
 
-    googleLoginButton.id = '#googleLoginButton';
+    googleLoginButton.id = 'googleLoginButton';
 
     const hasButton = [...parentButton.children].find(child => child.id === googleLoginButton.id);
 
@@ -23,7 +26,7 @@ function Home() {
 
     initialize({
         client_id: "51626388269-udorhoviviu1ppa5163bvjj9k6cbhkaj.apps.googleusercontent.com",
-        callback: response => responseLogin(response, socket, setSocket)
+        callback: response => responseLogin(response, parentButton, googleLoginButton)
     });
 
     renderButton(googleLoginButton, buttonStyles);
@@ -31,30 +34,34 @@ function Home() {
     prompt();
   }, []);
 
-  return <>
+  function responseLogin(response, parentButton, googleLoginButton) {
+    const data = jwt_decode(response.credential), {email} = data, hasEmail = !!authUsers.find(authUser => authUser === email);
+  
+    if (hasEmail) {
+      loadSocket(socket);
+
+      parentButton.removeChild(googleLoginButton);
+    };
+  };
+  
+  async function loadSocket(socket) {
+    if (socket) return;
+
+    socket = await io.connect('http://localhost:3001');
+  
+    setSocket(socket);
+  };
+
+  return socket ? <>
   <Head>
-    <title>Aluguel da Chácara</title>
+    <title>Chácara - Home</title>
+  </Head>
+  </> : <>
+  <Head>
+    <title>Fazer Login</title>
   </Head>
   <HomeContent {...homeArgs}/>
   </>
-};
-
-function responseLogin(response, socket, setSocket) {
-  const data = jwt_decode(response.credential), {email} = data, hasEmail = !!authUsers.find(authUser => authUser === email);
-
-  if (hasEmail) loadSocket(socket, setSocket);
-};
-
-async function loadSocket(socket, setSocket) {
-  socket ||= await io.connect('http://localhost:3001');
-
-  setSocketProps(socket);
-
-  setSocket(socket);
-};
-
-function setSocketProps(socket) {
-  socket;
 };
 
 export default Home;
