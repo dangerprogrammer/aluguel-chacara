@@ -21,7 +21,7 @@ function Navbar({you, anotherUsers}) {
                 <ion-icon name="log-out-outline"></ion-icon>
             </button> */}
             <ul className={usersList}>
-                <UsersList usersList={[...anotherUsers, you, you, you, you, you, you, you]}/>
+                <UsersList usersList={anotherUsers}/>
             </ul>
         </main>
     </nav>

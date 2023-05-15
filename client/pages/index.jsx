@@ -62,10 +62,6 @@ function Home() {
       socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
 
       socket.on('update-users', usersList => setUsers(usersList));
-
-      socket.on('disconnect', () => {
-        console.log(`Socket ${socket.id} desconectado!`);
-      });
     });
   };
 
