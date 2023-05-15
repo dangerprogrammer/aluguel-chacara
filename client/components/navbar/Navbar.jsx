@@ -1,11 +1,13 @@
 import Image from 'next/image';
 import styles from './Navbar.module.scss';
+import UsersList from './UsersList';
 
-function Navbar({userID, users}) {
-    const {navbar, userImage, logOut, usersList} = styles, anotherUsers = users.filter(user => user.id != userID), user = users.find(user => user.id == userID);
-    if (!user) return;
+function Navbar({you, anotherUsers}) {
+    const {navbar, userImage, logOut, usersList} = styles;
 
-    const {picture, email, given_name, name} = user.userData;
+    if (!you) return;
+
+    const {picture, email, given_name, name} = you.userData;
 
     function logOutFunction() {};
 
@@ -19,9 +21,7 @@ function Navbar({userID, users}) {
                 <ion-icon name="log-out-outline"></ion-icon>
             </button> */}
             <ul className={usersList}>
-                {anotherUsers.map(({userData}, ind) => userData && <li key={ind}>
-                    <Image src={userData.picture} height={64} width={64} alt={`Foto de ${userData.name}`}/>
-                </li>)}
+                <UsersList usersList={[...anotherUsers, you]}/>
             </ul>
         </main>
     </nav>

@@ -61,7 +61,7 @@ function Home() {
     socket.on('connect', () => {
       socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
 
-      socket.on('total-users', io => setUsers(io));
+      socket.on('update-users', usersList => setUsers(usersList));
 
       socket.on('disconnect', () => {
         console.log(`Socket ${socket.id} desconectado!`);

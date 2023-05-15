@@ -6,20 +6,20 @@ const PORT = 3001;
 
 io.on('connection', socket => {
   if (allClients.findIndex(user => user.id === socket.id) == -1) allClients.push({id: socket.id});
-  console.log('Usuário conectado!', socket.id);
+  console.log('Usuário conectado!', allClients.length);
 
   socket.on('disconnect', reason => {
     const userIndex = allClients.findIndex(user => user.id === socket.id);
     allClients.splice(userIndex, 1);
-    console.log('Usuário desconectado!', socket.id);
-    io.emit('total-users', allClients);
+    console.log('Usuário desconectado!', allClients.length);
+    io.emit('update-users', allClients);
   });
 
   socket.on('user-data', data => {
     const userIndex = allClients.findIndex(user => user.id === socket.id);
     allClients[userIndex].userData = data;
 
-    io.emit('total-users', allClients);
+    io.emit('update-users', allClients);
   });
 })
 ;
