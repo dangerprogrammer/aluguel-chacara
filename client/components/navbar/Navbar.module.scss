@@ -1,0 +1,71 @@
+.navbar {
+    position: sticky;
+    width: 100%;
+    background: inherit;
+    min-height: 2rem;
+    padding: .5rem 0;
+    color: #eef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #eef3;
+
+    main {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0 calc(max(3vw, 1.5rem));
+
+        .userImage {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            height: 4rem;
+            width: 4rem;
+            background: transparent;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                pointer-events: none;
+            }
+        }
+
+        .logOut {
+            border: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+            background: transparent;
+            color: #eef;
+            font-size: 1.2em;
+            font-weight: bolder;
+            cursor: pointer;
+            transition: .2s ease-in-out;
+            transition-property: background, color;
+            padding: .4rem .5rem .4rem 1rem;
+            border-radius: .5rem;
+
+            ion-icon {
+                font-size: 1.5em;
+            }
+
+            &:hover {
+                background: #f552;
+                color: #f66;
+            }
+        }
+    }
+}

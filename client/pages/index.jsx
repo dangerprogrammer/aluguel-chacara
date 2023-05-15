@@ -1,4 +1,5 @@
 import HomeContent from "@/components/home-content/HomeContent";
+import LoginContent from "@/components/login-content/LoginContent";
 import authUsers from "@/scripts/authorizedUsers";
 import Head from "next/head";
 import { useState, useEffect } from "react";
@@ -11,9 +12,10 @@ function Home() {
   useEffect(() => {
     const hasLogged = localStorage.getItem('user-data'),
       googleLoginButton = document.createElement('div'),
-      parentButton = document.querySelector('#__next');
+      parentButton = document.querySelector('#loginButton');
 
-    if (hasLogged) loadSocket(socket);
+    if (!parentButton) return;
+    if (hasLogged && !socket) loadSocket(socket);
 
     googleLoginButton.id = 'googleLoginButton';
 
@@ -22,7 +24,7 @@ function Home() {
     if (!hasButton && !hasLogged) parentButton.appendChild(googleLoginButton);
 
     const {initialize, renderButton, prompt} = google.accounts.id,
-        buttonStyles = {type: "standard", shape: "pill", theme: "filled_black", text: "signin.", size: "large", logo_alignment: "left"};
+        buttonStyles = {type: "standard", shape: "pill", theme: "filled_black", text: "AAAAAAAAAAAAAAAAAAAAAAAA", size: "large", logo_alignment: "left"};
 
     initialize({
         client_id: "51626388269-udorhoviviu1ppa5163bvjj9k6cbhkaj.apps.googleusercontent.com",
@@ -40,7 +42,7 @@ function Home() {
     if (hasEmail) {
       loadSocket(socket);
 
-      localStorage.setItem('user-data', data);
+      localStorage.setItem('user-data', JSON.stringify(data));
 
       parentButton.removeChild(googleLoginButton);
     };
@@ -58,11 +60,12 @@ function Home() {
   <Head>
     <title>Chácara - Home</title>
   </Head>
+  <HomeContent {...homeArgs} user={JSON.parse(localStorage.getItem('user-data'))}/>
   </> : <>
   <Head>
-    <title>Fazer Login</title>
+    <title>Faça login para prosseguir</title>
   </Head>
-  <HomeContent {...homeArgs}/>
+  <LoginContent/>
   </>
 };
 
