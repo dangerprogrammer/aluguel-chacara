@@ -6,20 +6,20 @@ import io from 'socket.io-client';
 
 function Home() {
   const [socket, setSocket] = useState(null),
-    [user, setUser] = useState(null),
     homeArgs = {socket, setSocket};
 
   useEffect(() => {
-    console.log("useEffect");
-
-    const googleLoginButton = document.createElement('div'),
+    const hasLogged = localStorage.getItem('user-data'),
+      googleLoginButton = document.createElement('div'),
       parentButton = document.querySelector('#__next');
+
+    if (hasLogged) loadSocket(socket);
 
     googleLoginButton.id = 'googleLoginButton';
 
     const hasButton = [...parentButton.children].find(child => child.id === googleLoginButton.id);
 
-    if (!hasButton) parentButton.appendChild(googleLoginButton);
+    if (!hasButton && !hasLogged) parentButton.appendChild(googleLoginButton);
 
     const {initialize, renderButton, prompt} = google.accounts.id,
         buttonStyles = {type: "standard", shape: "pill", theme: "filled_black", text: "signin.", size: "large", logo_alignment: "left"};
@@ -39,6 +39,8 @@ function Home() {
   
     if (hasEmail) {
       loadSocket(socket);
+
+      localStorage.setItem('user-data', data);
 
       parentButton.removeChild(googleLoginButton);
     };
