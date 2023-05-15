@@ -7,8 +7,7 @@ import io from 'socket.io-client';
 
 function Home() {
   const [socket, setSocket] = useState(null),
-    [users, setUsers] = useState([]),
-    homeArgs = {socket};
+    [users, setUsers] = useState([]);
 
   useEffect(() => {
     const googleLoginButton = document.createElement('div'),
@@ -74,7 +73,7 @@ function Home() {
   <Head>
     <title>Chácara - Home</title>
   </Head>
-  <HomeContent {...homeArgs} user={JSON.parse(localStorage.getItem('user-data'))} users={users}/>
+  <HomeContent userID={socket.id} users={users}/>
   </> : <>
   <Head>
     <title>Faça login para prosseguir</title>
