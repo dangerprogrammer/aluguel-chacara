@@ -67,5 +67,14 @@
                 color: #f66;
             }
         }
+
+        .usersList {
+            display: flex;
+            flex-direction: row-reverse;
+
+            li {
+                list-style: none;
+            }
+        }
     }
 }

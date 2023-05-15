@@ -1,8 +1,8 @@
 import Navbar from '../navbar/Navbar';
 import styles from './HomeContent.module.scss';
 
-function HomeContent({socket, user}) {
-    const {homeContent} = styles, navArgs = {socket, user};
+function HomeContent({socket, user, users}) {
+    const {homeContent} = styles, navArgs = {socket, user, users};
 
     return <main className={homeContent}>
         <Navbar {...navArgs}/>

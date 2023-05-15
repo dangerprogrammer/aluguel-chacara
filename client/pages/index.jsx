@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 
 function Home() {
   const [socket, setSocket] = useState(null),
+    [users, setUsers] = useState([]),
     homeArgs = {socket, setSocket};
 
   useEffect(() => {
@@ -15,7 +16,9 @@ function Home() {
       parentButton = document.querySelector('#loginButton');
 
     if (!parentButton) return;
-    if (hasLogged && !socket) loadSocket(socket);
+    if (hasLogged && !socket) {
+      loadSocket(socket);
+    };
 
     googleLoginButton.id = 'googleLoginButton';
 
@@ -49,18 +52,35 @@ function Home() {
   };
   
   async function loadSocket(socket) {
-    if (socket) return;
+    if (socket) return socket;
 
     socket = await io.connect('http://localhost:3001');
   
+    receiveSockets(socket);
     setSocket(socket);
+
+    return socket;
+  };
+
+  function receiveSockets(socket) {
+    socket.on('connect', () => {
+      socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
+
+      socket.on('total-users', io => {
+        setUsers(io);
+      });
+
+      socket.on('disconnect', () => {
+        console.log(`Socket ${socket.id} desconectado!`);
+      });
+    });
   };
 
   return socket ? <>
   <Head>
     <title>Chácara - Home</title>
   </Head>
-  <HomeContent {...homeArgs} user={JSON.parse(localStorage.getItem('user-data'))}/>
+  <HomeContent {...homeArgs} user={JSON.parse(localStorage.getItem('user-data'))} users={users}/>
   </> : <>
   <Head>
     <title>Faça login para prosseguir</title>

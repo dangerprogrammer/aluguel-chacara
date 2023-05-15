@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import styles from './Navbar.module.scss';
 
-function Navbar({user}) {
-    const {navbar, userImage, logOut} = styles, {name, given_name, email, picture} = user;
+function Navbar({user, users}) {
+    const {navbar, userImage, logOut, usersList} = styles, {name, given_name, email, picture} = user;
+
+    console.log(users);
 
     function logOutFunction() {};
 
@@ -11,10 +13,13 @@ function Navbar({user}) {
             <button className={userImage}>
                 <Image src={picture} height={64} width={64} alt={`Foto de ${name}`}/>
             </button>
-            <button className={logOut} onClick={logOutFunction}>
+            {/* <button className={logOut} onClick={logOutFunction}>
                 <span>Sair</span>
                 <ion-icon name="log-out-outline"></ion-icon>
-            </button>
+            </button> */}
+            <ul className={usersList}>
+                {users.map(({userData}, ind) => userData && <li key={ind}>{userData.name}</li>)}
+            </ul>
         </main>
     </nav>
 };
