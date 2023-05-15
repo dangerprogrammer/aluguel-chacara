@@ -1,0 +1,40 @@
+.userContainer, .plusContent {
+    position: relative;
+    list-style: none;
+    translate: calc(.5rem * var(--index));
+    z-index: var(--ind);
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    transition-property: opacity;
+
+    &:hover {
+        z-index: 100;
+    }
+
+    div, span {
+        overflow: hidden;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.5rem;
+        width: 2.5rem;
+        border: .2rem solid #eef;
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
+
+*:has(> .userContainer:hover:not(.plusContent)) .userContainer:not(:hover, .plusContent) {
+    opacity: .5;
+}
+
+.plusContent {
+    div, span {
+        background: #eef;
+        color: #112;
+    }
+}

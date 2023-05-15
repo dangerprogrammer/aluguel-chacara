@@ -71,10 +71,8 @@
         .usersList {
             display: flex;
             flex-direction: row-reverse;
-
-            li {
-                list-style: none;
-            }
+            align-items: center;
+            user-select: none;
         }
     }
 }
