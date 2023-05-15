@@ -13,7 +13,7 @@ function Navbar({you, anotherUsers}) {
 
     return <nav className={navbar}>
         <main>
-            <button className={userImage}>
+            <button className={userImage}  onClick={() => {}}>
                 <Image src={picture} height={64} width={64} alt={`Foto de ${name}`}/>
             </button>
             {/* <button className={logOut} onClick={logOutFunction}>

@@ -7,7 +7,7 @@ function UsersList({usersList}) {
     if (!usersList) return;
 
     return usersList.length > 5 ? [...usersList.filter((user, ind) => ind < 4), {content: `+${usersList.length - 4}`}].map(({userData, content}, ind) => (
-        <li key={ind} style={{'--ind': usersList.length - ind, '--index': ind}} className={`${userContainer} ${content ? plusContent : ''}`}>
+        <li key={ind} style={{'--ind': usersList.length - ind, '--index': ind}} className={`${userContainer} ${content ? plusContent : ''}`} onClick={() => {}}>
             {content ? <span>
                 {content}
             </span> : <div>
