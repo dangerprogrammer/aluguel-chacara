@@ -8,23 +8,19 @@ import io from 'socket.io-client';
 function Home() {
   const [socket, setSocket] = useState(null),
     [users, setUsers] = useState([]),
-    homeArgs = {socket, setSocket};
+    homeArgs = {socket};
 
   useEffect(() => {
-    const hasLogged = localStorage.getItem('user-data'),
-      googleLoginButton = document.createElement('div'),
+    const googleLoginButton = document.createElement('div'),
       parentButton = document.querySelector('#loginButton');
 
     if (!parentButton) return;
-    if (hasLogged && !socket) {
-      loadSocket(socket);
-    };
 
     googleLoginButton.id = 'googleLoginButton';
 
     const hasButton = [...parentButton.children].find(child => child.id === googleLoginButton.id);
 
-    if (!hasButton && !hasLogged) parentButton.appendChild(googleLoginButton);
+    if (!hasButton) parentButton.appendChild(googleLoginButton);
 
     const {initialize, renderButton, prompt} = google.accounts.id,
         buttonStyles = {type: "standard", shape: "pill", theme: "filled_black", text: "AAAAAAAAAAAAAAAAAAAAAAAA", size: "large", logo_alignment: "left"};
@@ -66,9 +62,7 @@ function Home() {
     socket.on('connect', () => {
       socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
 
-      socket.on('total-users', io => {
-        setUsers(io);
-      });
+      socket.on('total-users', io => setUsers(io));
 
       socket.on('disconnect', () => {
         console.log(`Socket ${socket.id} desconectado!`);

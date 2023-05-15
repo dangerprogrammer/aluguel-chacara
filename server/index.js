@@ -5,12 +5,12 @@ const io = require('socket.io')(server, {cors: {origin: '*'}}), allClients = [];
 const PORT = 3001;
 
 io.on('connection', socket => {
-  allClients.push({id: socket.id});
+  if (allClients.findIndex(user => user.id === socket.id) == -1) allClients.push({id: socket.id});
   console.log('Usuário conectado!', socket.id);
 
   socket.on('disconnect', reason => {
     const userIndex = allClients.findIndex(user => user.id === socket.id);
-    allClients.splice(allClients.userIndex, 1);
+    allClients.splice(userIndex, 1);
     console.log('Usuário desconectado!', socket.id);
     io.emit('total-users', allClients);
   });
