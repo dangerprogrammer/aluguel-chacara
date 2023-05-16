@@ -9,11 +9,18 @@ function Home() {
   const [socket, setSocket] = useState(null),
     [users, setUsers] = useState([]);
 
+  let firstEmmit = !0;
+
   useEffect(() => {
-    const googleLoginButton = document.createElement('div'),
+    const hasLogged = localStorage.getItem('user-data'),
+      googleLoginButton = document.createElement('div'),
       parentButton = document.querySelector('#loginButton');
 
     if (!parentButton) return;
+    if (hasLogged && !socket && firstEmmit) {
+      loadSocket(socket);
+      firstEmmit = !1;
+    };
 
     googleLoginButton.id = 'googleLoginButton';
 
@@ -37,8 +44,9 @@ function Home() {
   function responseLogin(response, parentButton, googleLoginButton) {
     const data = jwt_decode(response.credential), {email} = data, hasEmail = !!authUsers.find(authUser => authUser === email);
   
-    if (hasEmail) {
+    if (hasEmail && !localStorage.getItem('user-data') && !socket) {
       loadSocket(socket);
+      console.log("loadSocket 2");
 
       localStorage.setItem('user-data', JSON.stringify(data));
 
@@ -59,6 +67,7 @@ function Home() {
 
   function receiveSockets(socket) {
     socket.on('connect', () => {
+      console.log(`Socket ${socket.id} conectado!`);
       socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
 
       socket.on('update-users', usersList => setUsers(usersList));

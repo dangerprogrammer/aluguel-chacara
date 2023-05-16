@@ -4,11 +4,11 @@ import Image from "next/image";
 function UsersList({usersList}) {
     const {userContainer, plusContent} = styles, sizePicture = 40;
 
-    if (!usersList) return;
+    if (!usersList.length || !usersList[0].userData) return;
 
-    function UserComponent(picture, name) {
+    function UserComponent({picture, name}) {
         return <div>
-            <Image src={userData.picture} height={sizePicture} width={sizePicture} alt={`Foto de ${userData.name}`}/>
+            <Image src={picture} height={sizePicture} width={sizePicture} alt={`Foto de ${name}`}/>
         </div>
     };
 
@@ -16,16 +16,12 @@ function UsersList({usersList}) {
         <li key={ind} style={{'--ind': usersList.length - ind, '--index': ind}} className={`${userContainer} ${content ? plusContent : ''}`} onClick={() => {}}>
             {content ? <span>
                 {content}
-            </span> : <div>
-                <Image src={userData.picture} height={sizePicture} width={sizePicture} alt={`Foto de ${userData.name}`}/>
-            </div>}
+            </span> : <UserComponent/>}
             
         </li>
     )) : usersList.map(({userData}, ind) => (
         <li key={ind} style={{'--ind': usersList.length - ind, '--index': ind}} className={userContainer}>
-            <div>
-                <Image src={userData.picture} height={sizePicture} width={sizePicture} alt={`Foto de ${userData.name}`}/>
-            </div>
+            <UserComponent picture={userData.picture} name={userData.name}/>
         </li>
     ));
 };

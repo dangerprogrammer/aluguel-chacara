@@ -2,18 +2,16 @@ import Image from 'next/image';
 import styles from './Navbar.module.scss';
 import UsersList from './UsersList';
 
-function Navbar({you, anotherUsers}) {
+function Navbar({you, anotherUsers, setSideuser}) {
     const {navbar, userImage, logOut, usersList} = styles;
 
-    if (!you) return;
-
-    const {picture, email, given_name, name} = you.userData;
+    const {picture/*, email, given_name*/, name} = you.userData;
 
     function logOutFunction() {};
 
     return <nav className={navbar}>
         <main>
-            <button className={userImage}  onClick={() => {}}>
+            <button className={userImage}  onClick={() => setSideuser(!0)}>
                 <Image src={picture} height={64} width={64} alt={`Foto de ${name}`}/>
             </button>
             {/* <button className={logOut} onClick={logOutFunction}>
