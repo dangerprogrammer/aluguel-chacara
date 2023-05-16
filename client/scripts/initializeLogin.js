@@ -12,9 +12,15 @@ function responseLogin(response, parentButton, googleLoginButton, socket, setSoc
 
         parentButton.removeChild(googleLoginButton);
     };
+
+    if (socket) {
+        socket.connected = !0;
+        console.log('socket estava deslogado! logando...', socket);
+    };
 };
 
 async function loadSocket(socket, setSocket, setUsers) {
+    setSocket(!0);
     if (socket) return;
 
     socket = await io.connect('http://localhost:3001');

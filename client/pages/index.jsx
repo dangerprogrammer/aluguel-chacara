@@ -8,7 +8,7 @@ function Home() {
   const [socket, setSocket] = useState(null),
     [login, setLogin] = useState(!1),
     [users, setUsers] = useState([]),
-    metaDados = {login, setLogin, socket, setSocket, setUsers, firstEmmit: !0};
+    metaDados = {login, setLogin, socket, setSocket, setUsers};
 
   setTimeout(() => {
     if (window != undefined) {
@@ -32,21 +32,23 @@ function Home() {
 function afterWindowLoaded(metaDados) {
   const {login, setLogin, socket, setSocket, setUsers} = metaDados;
 
-  if (metaDados.firstEmmit == !1) return;
-
-  if (!login && socket) return setSocket(null);
+  if (!login && socket && socket.connected) {
+    socket.connected = !1;
+    return console.log('houve logout! desconectando...', socket);
+  };
 
   const hasLogged = localStorage.getItem('user-data'),
       googleLoginButton = document.createElement('div'),
       parentButton = document.querySelector('#loginButton');
 
     if (!parentButton) return;
-    if (hasLogged) {
+    if (hasLogged && (!socket || !socket.connected)) {
       setLogin(!!hasLogged);
+      if (!socket) loadSocket(socket, setSocket, setUsers);
 
-      if (!socket) {
-        console.log("já havia login! conectando...");
-        loadSocket(socket, setSocket, setUsers);
+      if (socket && !socket.connected) {
+        socket.connected = !0;
+        console.log('havia login! reconectando...', socket);
       };
     };
 
@@ -57,7 +59,6 @@ function afterWindowLoaded(metaDados) {
     if (!hasButton) parentButton.appendChild(googleLoginButton);
 
     initializeLogin(parentButton, googleLoginButton, socket, setSocket, setUsers);
-    metaDados.firstEmmit = !1;
 };
 
 export default Home;

@@ -5,6 +5,12 @@ function SidebarUser({you, anotherUsers, sideuser, setSideuser, setLogin}) {
     const {sidebar, shadowOutside, show, hide, userInfo, userImage, userDesc, userName, userEmail, listOptions, option, logout} = styles;
     const {picture, email/*, given_name*/, name} = you.userData;
 
+    function logoutFunction() {
+        localStorage.removeItem('user-data');
+
+        setLogin(!1);
+    };
+
     return <aside className={`${sidebar} ${sideuser ? show : hide}`}>
         <main>
             <div className={userInfo}>
@@ -25,7 +31,7 @@ function SidebarUser({you, anotherUsers, sideuser, setSideuser, setLogin}) {
                 <li className={option}>Opa!</li>
             </ul>
             <hr/>
-            <button className={logout} onClick={() => setLogin(!1)}>
+            <button className={logout} onClick={logoutFunction}>
                 <span>Sair</span>
                 <ion-icon name="log-out-outline"></ion-icon>
             </button>
