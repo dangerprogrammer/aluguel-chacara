@@ -4,23 +4,27 @@ import io from 'socket.io-client';
 function responseLogin(response, parentButton, googleLoginButton, socket, setSocket, setUsers) {
     const data = jwt_decode(response.credential), {email} = data, hasEmail = !!authUsers.find(authUser => authUser === email);
 
-    if (hasEmail && !localStorage.getItem('user-data') && !socket) {
+    if (!hasEmail) return;
+
+    localStorage.setItem('user-data', JSON.stringify(data));
+
+    parentButton.removeChild(googleLoginButton);
+
+    if (!localStorage.getItem('user-data') && !socket) {
         console.log("carregando login...");
         loadSocket(socket, setSocket, setUsers);
-
-        localStorage.setItem('user-data', JSON.stringify(data));
-
-        parentButton.removeChild(googleLoginButton);
     };
 
     if (socket) {
         socket.connected = !0;
-        console.log('socket estava deslogado! logando...', socket);
+
+        socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
+
+        console.log('socket estava deslogado! logando...', socket.id);
     };
 };
 
 async function loadSocket(socket, setSocket, setUsers) {
-    setSocket(!0);
     if (socket) return;
 
     socket = await io.connect('http://localhost:3001');

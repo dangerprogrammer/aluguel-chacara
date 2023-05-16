@@ -2,13 +2,20 @@ import HomeContent from "@/components/home-content/HomeContent";
 import LoginContent from "@/components/login-content/LoginContent";
 import initializeLogin, {loadSocket} from "@/scripts/initializeLogin";
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 
 function Home() {
   const [socket, setSocket] = useState(null),
     [login, setLogin] = useState(!1),
     [users, setUsers] = useState([]),
-    metaDados = {login, setLogin, socket, setSocket, setUsers};
+    metaDados = {login, setLogin, socket, setSocket, setUsers, firstEmmit: !0};
+
+  let first = !0;
+  useLayoutEffect(() => {
+    console.log("layout effect!", first);
+
+    first = !1;
+  }, []);
 
   setTimeout(() => {
     if (window != undefined) {
@@ -34,7 +41,7 @@ function afterWindowLoaded(metaDados) {
 
   if (!login && socket && socket.connected) {
     socket.connected = !1;
-    return console.log('houve logout! desconectando...', socket);
+    return console.log('houve logout! desconectando...', socket.id);
   };
 
   const hasLogged = localStorage.getItem('user-data'),
@@ -44,11 +51,14 @@ function afterWindowLoaded(metaDados) {
     if (!parentButton) return;
     if (hasLogged && (!socket || !socket.connected)) {
       setLogin(!!hasLogged);
-      if (!socket) loadSocket(socket, setSocket, setUsers);
+      if (!socket) {
+        console.log('havia login! criando...', metaDados.firstEmmit);
+        loadSocket(socket, setSocket, setUsers);
+      };
 
       if (socket && !socket.connected) {
         socket.connected = !0;
-        console.log('havia login! reconectando...', socket);
+        console.log('havia login! reconectando...', socket.id);
       };
     };
 
@@ -59,6 +69,8 @@ function afterWindowLoaded(metaDados) {
     if (!hasButton) parentButton.appendChild(googleLoginButton);
 
     initializeLogin(parentButton, googleLoginButton, socket, setSocket, setUsers);
+
+    metaDados.firstEmmit = !1;
 };
 
 export default Home;

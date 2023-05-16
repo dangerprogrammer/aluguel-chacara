@@ -4,7 +4,7 @@ import Image from "next/image";
 function UsersList({usersList}) {
     const {userContainer, plusContent} = styles, sizePicture = 40;
 
-    if (!usersList.length || !usersList[0].userData) return;
+    if (!usersList.length || !usersList[usersList.length - 1].userData) return;
 
     function UserComponent({picture, name}) {
         return <div>
