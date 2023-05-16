@@ -1,25 +1,53 @@
 import HomeContent from "@/components/home-content/HomeContent";
 import LoginContent from "@/components/login-content/LoginContent";
-import authUsers from "@/scripts/authorizedUsers";
+import initializeLogin, {loadSocket} from "@/scripts/initializeLogin";
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import io from 'socket.io-client';
+import { useState } from "react";
 
 function Home() {
   const [socket, setSocket] = useState(null),
-    [users, setUsers] = useState([]);
+    [login, setLogin] = useState(!1),
+    [users, setUsers] = useState([]),
+    metaDados = {login, setLogin, socket, setSocket, setUsers, firstEmmit: !0};
 
-  let firstEmmit = !0;
+  setTimeout(() => {
+    if (window != undefined) {
+      afterWindowLoaded(metaDados);
+    };
+  }, 10);
 
-  useEffect(() => {
-    const hasLogged = localStorage.getItem('user-data'),
+  return login ? <>
+  <Head>
+    <title>Chácara - Home</title>
+  </Head>
+  <HomeContent users={users} socket={socket} setLogin={setLogin}/>
+  </> : <>
+  <Head>
+    <title>Faça login para prosseguir</title>
+  </Head>
+  <LoginContent/>
+  </>
+};
+
+function afterWindowLoaded(metaDados) {
+  const {login, setLogin, socket, setSocket, setUsers} = metaDados;
+
+  if (metaDados.firstEmmit == !1) return;
+
+  if (!login && socket) return setSocket(null);
+
+  const hasLogged = localStorage.getItem('user-data'),
       googleLoginButton = document.createElement('div'),
       parentButton = document.querySelector('#loginButton');
 
     if (!parentButton) return;
-    if (hasLogged && !socket && firstEmmit) {
-      loadSocket(socket);
-      firstEmmit = !1;
+    if (hasLogged) {
+      setLogin(!!hasLogged);
+
+      if (!socket) {
+        console.log("já havia login! conectando...");
+        loadSocket(socket, setSocket, setUsers);
+      };
     };
 
     googleLoginButton.id = 'googleLoginButton';
@@ -28,63 +56,8 @@ function Home() {
 
     if (!hasButton) parentButton.appendChild(googleLoginButton);
 
-    const {initialize, renderButton, prompt} = google.accounts.id,
-        buttonStyles = {type: "standard", shape: "pill", theme: "filled_black", text: "AAAAAAAAAAAAAAAAAAAAAAAA", size: "large", logo_alignment: "left"};
-
-    initialize({
-        client_id: "51626388269-udorhoviviu1ppa5163bvjj9k6cbhkaj.apps.googleusercontent.com",
-        callback: response => responseLogin(response, parentButton, googleLoginButton)
-    });
-
-    renderButton(googleLoginButton, buttonStyles);
-
-    prompt();
-  }, []);
-
-  function responseLogin(response, parentButton, googleLoginButton) {
-    const data = jwt_decode(response.credential), {email} = data, hasEmail = !!authUsers.find(authUser => authUser === email);
-  
-    if (hasEmail && !localStorage.getItem('user-data') && !socket) {
-      loadSocket(socket);
-      console.log("loadSocket 2");
-
-      localStorage.setItem('user-data', JSON.stringify(data));
-
-      parentButton.removeChild(googleLoginButton);
-    };
-  };
-  
-  async function loadSocket(socket) {
-    if (socket) return socket;
-
-    socket = await io.connect('http://localhost:3001');
-  
-    receiveSockets(socket);
-    setSocket(socket);
-
-    return socket;
-  };
-
-  function receiveSockets(socket) {
-    socket.on('connect', () => {
-      console.log(`Socket ${socket.id} conectado!`);
-      socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
-
-      socket.on('update-users', usersList => setUsers(usersList));
-    });
-  };
-
-  return socket ? <>
-  <Head>
-    <title>Chácara - Home</title>
-  </Head>
-  <HomeContent userID={socket.id} users={users}/>
-  </> : <>
-  <Head>
-    <title>Faça login para prosseguir</title>
-  </Head>
-  <LoginContent/>
-  </>
+    initializeLogin(parentButton, googleLoginButton, socket, setSocket, setUsers);
+    metaDados.firstEmmit = !1;
 };
 
 export default Home;
