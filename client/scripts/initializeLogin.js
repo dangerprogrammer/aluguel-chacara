@@ -6,16 +6,17 @@ function responseLogin(response, parentButton, googleLoginButton, socket, setSoc
 
     if (!hasEmail) return;
 
-    localStorage.setItem('user-data', JSON.stringify(data));
-
-    parentButton.removeChild(googleLoginButton);
-
     if (!localStorage.getItem('user-data') && !socket) {
         console.log("carregando login...");
         loadSocket(socket, setSocket, setUsers);
-    };
 
-    if (socket) {
+        localStorage.setItem('user-data', JSON.stringify(data));
+    
+        parentButton.removeChild(googleLoginButton);
+    } else if (socket) {
+        localStorage.setItem('user-data', JSON.stringify(data));
+
+        parentButton.removeChild(googleLoginButton);
         socket.connected = !0;
 
         socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));

@@ -49,14 +49,13 @@ function afterWindowLoaded(metaDados) {
       parentButton = document.querySelector('#loginButton');
 
     if (!parentButton) return;
-    if (hasLogged && (!socket || !socket.connected)) {
+    if (hasLogged) {
       setLogin(!!hasLogged);
+      
       if (!socket) {
         console.log('havia login! criando...', metaDados.firstEmmit);
         loadSocket(socket, setSocket, setUsers);
-      };
-
-      if (socket && !socket.connected) {
+      } else if (!socket.connected) {
         socket.connected = !0;
         console.log('havia login! reconectando...', socket.id);
       };
