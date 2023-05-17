@@ -1,9 +1,17 @@
 import Image from 'next/image';
 import styles from './SidebarUser.module.scss';
+import { useRouter } from 'next/router';
+
 
 function SidebarUser({you, anotherUsers, sideuser, setSideuser, setLogin}) {
-    const {sidebar, shadowOutside, show, hide, userInfo, userImage, userDesc, userName, userEmail, listOptions, option, logout} = styles;
+    const {sidebar, shadowOutside, show, hide, userInfo, userImage, userDesc, userName, userEmail, listOptions, option, logout, activeOption} = styles;
     const {picture, email/*, given_name*/, name} = you.userData;
+    const {push, pathname} = useRouter();
+    const optionsList = [
+        {text: "Meus aluguéis", path: '/myRent', iconName: 'home-outline'},
+        {text: "Calendário", path: '/calendar', iconName: 'calendar-number-outline'},
+        {text: "Conversas", path: '/chats', iconName: 'chatbubbles-outline'}
+    ];
 
     function logoutFunction() {
         localStorage.removeItem('user-data');
@@ -24,18 +32,11 @@ function SidebarUser({you, anotherUsers, sideuser, setSideuser, setLogin}) {
             </div>
             <hr/>
             <ul className={listOptions}>
-                <li className={option}>
-                    <ion-icon name="home-outline"></ion-icon>
-                    <span>Meus aluguéis</span>
-                </li>
-                <li className={option}>
-                    <ion-icon name="calendar-number-outline"></ion-icon>
-                    <span>Calendário</span>
-                </li>
-                <li className={option}>
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
-                    <span>Conversas</span>
-                </li>
+                {optionsList.map(({text, path, iconName}, ind) =>
+                <li className={`${option} ${pathname === path ? activeOption : ''}`} onClick={() => push(path)} key={ind}>
+                    <ion-icon name={iconName}></ion-icon>
+                    <span>{text}</span>
+                </li>)}
             </ul>
             <hr/>
             <button className={logout} onClick={logoutFunction}>

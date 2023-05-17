@@ -11,6 +11,7 @@
         background: #111531;
         display: flex;
         flex-direction: column;
+        user-select: none;
         gap: 1.5rem;
 
         hr {
@@ -57,7 +58,6 @@
     flex-direction: row;
     gap: 1rem;
     align-items: center;
-    user-select: none;
 }
 
 .userImage {
@@ -133,6 +133,12 @@
         background: lighten(#111531, 10);
         color: lighten(#111531, 65);
     }
+}
+
+.activeOption {
+    pointer-events: none;
+    background: #eef;
+    color: #111531;
 }
 
 .logout {
