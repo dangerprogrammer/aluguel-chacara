@@ -1,26 +1,16 @@
 import {ContextApp} from "@/components/context/ContextApp";
-import HomeContent from "@/components/home-content/HomeContent";
-import LoginContent from "@/components/login-content/LoginContent";
+import DefaultContent from "@/components/default-content/DefaultContent";
+import Redirect from "@/components/redirect/Redirect";
 import afterWindowLoaded from "@/scripts/afterWindowLoaded";
-import Head from "next/head";
 import { useContext } from "react";
 
 function Home() {
   const {socket, setSocket, login, setLogin, users, setUsers} = useContext(ContextApp),
     metaDados = {login, setLogin, socket, setSocket, setUsers, firstEmmit: !0};
 
-  setTimeout(() => {
-    if (typeof document !== null) afterWindowLoaded(metaDados);
-  }, 10);
+  setTimeout(() => typeof window != null && afterWindowLoaded(metaDados), 10);
 
-  return login ? <>
-  <HomeContent users={users} socket={socket} setLogin={setLogin}/>
-  </> : <>
-  <Head>
-    <title>Faça login para prosseguir</title>
-  </Head>
-  <LoginContent/>
-  </>
+  return login ? <DefaultContent users={users} socket={socket} setLogin={setLogin}/> : <Redirect to="/"/>
 };
 
 export default Home;
