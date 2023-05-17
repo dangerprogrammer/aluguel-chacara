@@ -1,6 +1,11 @@
 import '@/styles/globals.scss';
 import '@/styles/globals.module.scss';
+import ContextProvider from '@/components/context/ContextApp';
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+function App({ Component, pageProps }) {
+  return <ContextProvider>
+    <Component {...pageProps} />
+  </ContextProvider>
+};
+
+export default App;

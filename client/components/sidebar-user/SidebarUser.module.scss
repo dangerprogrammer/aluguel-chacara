@@ -9,10 +9,9 @@
         padding: 1rem 2rem;
         height: 100%;
         background: #111531;
-        border-right: 1px solid #eef3;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.5rem;
 
         hr {
             height: .2rem;
@@ -118,12 +117,21 @@
     padding: .5rem 1rem;
     border-radius: .5rem;
     transition: .2s ease-in-out;
-    transition-property: background;
+    transition-property: background, color;
     cursor: pointer;
     font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+
+    ion-icon {
+        font-size: 1.4em;
+    }
 
     &:hover {
         background: lighten(#111531, 10);
+        color: lighten(#111531, 65);
     }
 }
 
@@ -133,9 +141,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
     background: transparent;
-    color: #eef;
+    color: inherit;
     font-size: 1.2em;
     font-weight: bolder;
     cursor: pointer;

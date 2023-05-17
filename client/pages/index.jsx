@@ -1,13 +1,12 @@
+import {ContextApp} from "@/components/context/ContextApp";
 import HomeContent from "@/components/home-content/HomeContent";
 import LoginContent from "@/components/login-content/LoginContent";
 import initializeLogin, {loadSocket} from "@/scripts/initializeLogin";
 import Head from "next/head";
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useContext } from "react";
 
 function Home() {
-  const [socket, setSocket] = useState(null),
-    [login, setLogin] = useState(!1),
-    [users, setUsers] = useState([]),
+  const {socket, setSocket, login, setLogin, users, setUsers} = useContext(ContextApp),
     metaDados = {login, setLogin, socket, setSocket, setUsers, firstEmmit: !0};
 
   let first = !0;
@@ -39,10 +38,7 @@ function Home() {
 function afterWindowLoaded(metaDados) {
   const {login, setLogin, socket, setSocket, setUsers} = metaDados;
 
-  if (!login && socket && socket.connected) {
-    socket.connected = !1;
-    return console.log('houve logout! desconectando...', socket.id);
-  };
+  if (!login && socket && socket.connected) return socket.connected = !1;
 
   const hasLogged = localStorage.getItem('user-data'),
       googleLoginButton = document.createElement('div'),
@@ -51,14 +47,10 @@ function afterWindowLoaded(metaDados) {
     if (!parentButton) return;
     if (hasLogged) {
       setLogin(!!hasLogged);
-      
+
       if (!socket) {
-        console.log('havia login! criando...', metaDados.firstEmmit);
         loadSocket(socket, setSocket, setUsers);
-      } else if (!socket.connected) {
-        socket.connected = !0;
-        console.log('havia login! reconectando...', socket.id);
-      };
+      } else if (!socket.connected) socket.connected = !0;
     };
 
     googleLoginButton.id = 'googleLoginButton';

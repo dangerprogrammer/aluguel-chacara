@@ -7,7 +7,6 @@ function responseLogin(response, parentButton, googleLoginButton, socket, setSoc
     if (!hasEmail) return;
 
     if (!localStorage.getItem('user-data') && !socket) {
-        console.log("carregando login...");
         loadSocket(socket, setSocket, setUsers);
 
         localStorage.setItem('user-data', JSON.stringify(data));
@@ -20,8 +19,6 @@ function responseLogin(response, parentButton, googleLoginButton, socket, setSoc
         socket.connected = !0;
 
         socket.emit('user-data', JSON.parse(localStorage.getItem('user-data')));
-
-        console.log('socket estava deslogado! logando...', socket.id);
     };
 };
 

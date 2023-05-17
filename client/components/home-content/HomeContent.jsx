@@ -5,7 +5,7 @@ import styles from './HomeContent.module.scss';
 
 function HomeContent({users, socket, setLogin}) {
     const {homeContent} = styles, anotherUsers = users.filter(user => user.id != socket.id), you = users.find(user => user.id == socket.id),
-        [sideuser, setSideuser] = useState(!0),
+        [sideuser, setSideuser] = useState(!1),
         userArgs = {you, anotherUsers}, navArgs = {setSideuser}, sideArgs = {sideuser, setSideuser, socket, setLogin};
 
     if (!socket || !you || !you.userData) return;

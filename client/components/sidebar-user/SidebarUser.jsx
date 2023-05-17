@@ -24,11 +24,18 @@ function SidebarUser({you, anotherUsers, sideuser, setSideuser, setLogin}) {
             </div>
             <hr/>
             <ul className={listOptions}>
-                <li className={option}>Opa!</li>
-                <li className={option}>Opa!</li>
-                <li className={option}>Opa!</li>
-                <li className={option}>Opa!</li>
-                <li className={option}>Opa!</li>
+                <li className={option}>
+                    <ion-icon name="home-outline"></ion-icon>
+                    <span>Meus aluguéis</span>
+                </li>
+                <li className={option}>
+                    <ion-icon name="calendar-number-outline"></ion-icon>
+                    <span>Calendário</span>
+                </li>
+                <li className={option}>
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                    <span>Conversas</span>
+                </li>
             </ul>
             <hr/>
             <button className={logout} onClick={logoutFunction}>
