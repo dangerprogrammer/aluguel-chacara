@@ -14,7 +14,7 @@ function HomeContent({users, socket}) {
 
     return <main className={homeContent}>
         <header>
-            <h1 className={homeTitle}>Olá <bolder>{given_name}</bolder>, seja muito bem-vindo(a)! 👋👋</h1>
+            <h1 className={homeTitle}>Olá <span>{given_name}</span>, seja muito bem-vindo(a)! 👋👋</h1>
             <h3>Para ver mais conteúdos, acesse uma das páginas abaixo, ou clicando na foto do seu perfil!</h3>
         </header>
         <section className={gridPages}>

@@ -13,10 +13,10 @@ function UsersList({usersList}) {
     };
 
     return usersList.length > 5 ? [...usersList.filter((user, ind) => ind < 4), {content: `+${usersList.length - 4}`}].map(({userData, content}, ind) => (
-        <li key={ind} style={{'--ind': usersList.length - ind, '--index': ind}} className={`${userContainer} ${content ? plusContent : ''}`} onClick={() => {}}>
+        <li key={ind} style={{'--ind': usersList.length - ind, '--index': ind}} className={`${userContainer} ${content ? plusContent : ''}`}>
             {content ? <span>
                 {content}
-            </span> : <UserComponent/>}
+            </span> : <UserComponent picture={userData.picture} name={userData.name}/>}
             
         </li>
     )) : usersList.map(({userData}, ind) => (
