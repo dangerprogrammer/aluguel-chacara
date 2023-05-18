@@ -13,22 +13,18 @@ class generateCalendar {
     };
 
     getSettings({year, month, day}) {
-        const settings = {today: {}}, date = new Date();
+        const settings = {}, date = new Date();
         let ind, strDate;
 
         date.setFullYear(year);
         date.setMonth(month);
         date.setDate(day);
 
-        const {today} = settings;
-
         strDate = date.toString().split(' ')[0];
 
         ind = calendarInfo.dayName.ddd.indexOf(strDate);
 
-        today.dayIndex = ind;
-        today.dayName = strDate;
-        today.dayFullName = calendarInfo.dayName.full[ind];
+        settings.today = {dayIndex: ind, dayName: strDate, dayFullName: calendarInfo.dayName.full[ind]};
     };
 
     activateYear(years, thisYear) {};
