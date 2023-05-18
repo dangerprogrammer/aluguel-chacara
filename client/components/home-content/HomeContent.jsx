@@ -18,12 +18,12 @@ function HomeContent({users, socket}) {
             <h3>Para ver mais conteúdos, acesse uma das páginas abaixo, ou clicando na foto do seu perfil!</h3>
         </header>
         <section className={gridPages}>
-            {routes.map(({text, path, iconName, descPath}, ind) => <div key={ind} onClick={() => push(path)} className={routeButton}>
+            {routes.map(({text, path, iconName, DescPath}, ind) => <div key={ind} onClick={() => push(path)} className={routeButton}>
                 <h1>
                     <span><ion-icon name={iconName}></ion-icon></span>
                     {text}
                 </h1>
-                <p>{descPath}</p>
+                <p><DescPath given_name={given_name}/></p>
             </div>)}
         </section>
         <span></span>

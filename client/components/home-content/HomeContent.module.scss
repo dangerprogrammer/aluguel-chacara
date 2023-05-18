@@ -34,6 +34,8 @@
     translate: -50%;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
     max-width: 75rem;
     width: 80vw;
@@ -44,6 +46,7 @@
     flex-grow: 1;
     background: lighten(#111531, 0);
     min-width: 18rem;
+    max-width: 30rem;
     padding: clamp(.75rem, 3vw, 1.5rem);
     font-size: .85em;
     border-radius: .5rem;
