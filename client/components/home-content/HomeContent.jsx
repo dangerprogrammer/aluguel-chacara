@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useContext } from "react";
 
 function HomeContent({users, socket}) {
-    const {homeContent, homeTitle, gridPages} = styles, you = users.find(user => user.id == socket.id);
+    const {homeContent, homeTitle, gridPages, routeButton} = styles, you = users.find(user => user.id == socket.id);
     const {push} = useRouter();
 
     if (!socket || !you || !you.userData) return;
@@ -18,14 +18,16 @@ function HomeContent({users, socket}) {
             <h3>Para ver mais conteúdos, acesse uma das páginas abaixo, ou clicando na foto do seu perfil!</h3>
         </header>
         <section className={gridPages}>
-            {routes.map(({text, path, iconName, descPath}, ind) => <div key={ind} onClick={() => push(path)}>
+            {routes.map(({text, path, iconName, descPath}, ind) => <div key={ind} onClick={() => push(path)} className={routeButton}>
                 <h1>
-                    <ion-icon name={iconName}></ion-icon>
-                    <span>{text}</span>
+                    <span><ion-icon name={iconName}></ion-icon></span>
+                    {text}
                 </h1>
                 <p>{descPath}</p>
             </div>)}
         </section>
+        <span></span>
+        <span></span>
     </main>
 };
 

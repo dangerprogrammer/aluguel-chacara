@@ -4,6 +4,7 @@
     padding: 1rem max(3vw, 1.5rem);
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     gap: 2rem;
     font-size: clamp(.85rem, 1.6vw, 1.4rem);
 
@@ -37,28 +38,44 @@
     max-width: 75rem;
     width: 80vw;
     user-select: none;
+}
 
-    > * {
-        flex-grow: 1;
-        background: linear-gradient(15deg, lighten(#111531, 10), lighten(#111531, 30));
-        min-width: 18rem;
-        padding: 1rem 2rem;
-        border-radius: .5rem;
-        border: 2px solid lighten(#111531, 40);
+.routeButton {
+    flex-grow: 1;
+    background: lighten(#111531, 0);
+    min-width: 18rem;
+    padding: clamp(.75rem, 3vw, 1.5rem);
+    font-size: .85em;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    cursor: pointer;
+    transition: .2s ease-in-out background;
+
+    &:hover {
+        background: lighten(#111531, 10);
+    }
+
+    h1 {
         display: flex;
-        flex-direction: column;
-        gap: .5rem;
-        cursor: pointer;
+        gap: 1rem;
+        font-weight: 700;
+        align-items: center;
 
-        h1 {
+        span {
+            background: #eef;
+            color: #111531;
             display: flex;
-            gap: 1rem;
             align-items: center;
+            justify-content: center;
+            padding: .3em;
+            border-radius: .3em;
         }
+    }
 
-        p {
-            margin: .5rem;
-            opacity: .8;
-        }
+    p {
+        margin: .5rem;
+        opacity: .8;
     }
 }
