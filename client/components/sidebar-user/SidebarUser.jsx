@@ -1,17 +1,14 @@
 import Image from 'next/image';
 import styles from './SidebarUser.module.scss';
 import { useRouter } from 'next/router';
+import {ContextApp} from "@/components/context/ContextApp";
+import { useContext } from "react";
 
-
-function SidebarUser({you, anotherUsers, sideuser, setSideuser, setLogin}) {
+function SidebarUser({you, anotherUsers, setLogin}) {
     const {sidebar, shadowOutside, show, hide, userInfo, userImage, userDesc, userName, userEmail, listOptions, option, logout, activeOption} = styles;
     const {picture, email/*, given_name*/, name} = you.userData;
     const {push, pathname} = useRouter();
-    const optionsList = [
-        {text: "Meus aluguéis", path: '/myRent', iconName: 'home-outline'},
-        {text: "Calendário", path: '/calendar', iconName: 'calendar-number-outline'},
-        {text: "Conversas", path: '/chats', iconName: 'chatbubbles-outline'}
-    ];
+    const {routes, sideuser, setSideuser} = useContext(ContextApp);
 
     function logoutFunction() {
         localStorage.removeItem('user-data');
@@ -32,7 +29,7 @@ function SidebarUser({you, anotherUsers, sideuser, setSideuser, setLogin}) {
             </div>
             <hr/>
             <ul className={listOptions}>
-                {optionsList.map(({text, path, iconName}, ind) =>
+                {routes.map(({text, path, iconName}, ind) =>
                 <li className={`${option} ${pathname === path ? activeOption : ''}`} onClick={() => push(path)} key={ind}>
                     <ion-icon name={iconName}></ion-icon>
                     <span>{text}</span>

@@ -5,5 +5,60 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    // justify-content: space-around;
+    font-size: clamp(.85rem, 1.6vw, 1.4rem);
+
+    header {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    h3 {
+        font-weight: 500;
+    }
+}
+
+.homeTitle {
+    font-size: 1.6em;
+    font-weight: 400;
+
+    bolder {
+        font-weight: 700;
+    }
+}
+
+.gridPages {
+    position: relative;
+    left: 50%;
+    translate: -50%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 75rem;
+    width: 80vw;
+    user-select: none;
+
+    > * {
+        flex-grow: 1;
+        background: linear-gradient(15deg, lighten(#111531, 10), lighten(#111531, 30));
+        min-width: 18rem;
+        padding: 1rem 2rem;
+        border-radius: .5rem;
+        border: 2px solid lighten(#111531, 40);
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        cursor: pointer;
+
+        h1 {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        p {
+            margin: .5rem;
+            opacity: .8;
+        }
+    }
 }
