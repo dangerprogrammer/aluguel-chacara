@@ -1,6 +1,6 @@
 import styles from './HomeContent.module.scss';
 import {ContextApp} from "@/components/context/ContextApp";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useContext } from "react";
 
 function HomeContent({users, socket}) {

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from './SidebarUser.module.scss';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import {ContextApp} from "@/components/context/ContextApp";
 import { useContext } from "react";
 
