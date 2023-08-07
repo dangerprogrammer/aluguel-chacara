@@ -1,8 +1,9 @@
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, {cors: {origin: '*'}}), allClients = [];
+const io = require('socket.io')(server, {cors: {origin: '*'}});
+const allClients = [];
 
-const PORT = 3001
+const PORT = 3001;
 
 io.on('connection', socket => {
   if (allClients.findIndex(user => user.id === socket.id) == -1) allClients.push({id: socket.id});
