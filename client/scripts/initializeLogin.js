@@ -1,5 +1,5 @@
 import authUsers from "@/scripts/authorizedUsers";
-import io from 'socket.io-client';
+import io from 'socket.io-client'
 
 function responseLogin(response, parentButton, googleLoginButton, socket, setSocket, setUsers) {
     const data = jwt_decode(response.credential), {email} = data, hasEmail = !!authUsers.find(authUser => authUser === email);
