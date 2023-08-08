@@ -5,7 +5,7 @@ function afterWindowLoaded(metaDados) {
 
     if (!login && socket && socket.connected) return socket.connected = !1;
 
-    const hasLogged = localStorage.getItem('user-data'),
+    const hasLogged = window.localStorage.getItem('user-data'),
         googleLoginButton = document.createElement('div'),
         parentButton = document.querySelector('#loginButton');
 

@@ -45,8 +45,10 @@ function receiveSockets(socket, setUsers) {
 };
 
 function initializeLogin(parentButton, googleLoginButton, socket, setSocket, setUsers) {
-    const {initialize, renderButton, prompt} = google.accounts.id,
+    console.log(window, typeof window);
+    const {initialize, renderButton, prompt} = window.google.accounts.id,
         buttonStyles = {type: "standard", shape: "pill", theme: "filled_black", text: "AAAAAAAAAAAAAAAAAAAAAAAA", size: "large", logo_alignment: "left"};
+
 
     initialize({
         client_id: "51626388269-udorhoviviu1ppa5163bvjj9k6cbhkaj.apps.googleusercontent.com",

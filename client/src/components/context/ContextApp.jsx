@@ -21,6 +21,6 @@ function ContextProvider({children}) {
     </ContextApp.Provider>
 };
 
-export default ContextProvider;
-
 export {ContextApp};
+
+export default ContextProvider;
