@@ -1,13 +1,12 @@
 import Image from 'next/image';
-import styles from './SidebarUser.module.scss';
-import { useRouter } from 'next/navigation';
-import {ContextApp} from "@/components/context/ContextApp";
+import { sidebar, shadowOutside, show, hide, userInfo, userImage, userDesc, userName, userEmail, listOptions, option, logout, activeOption } from './SidebarUser.module.scss';
+import { usePathname, useRouter } from 'next/navigation';
+import { ContextApp } from "@/components/context/ContextApp";
 import { useContext } from "react";
 
 function SidebarUser({you, anotherUsers, setLogin}) {
-    const {sidebar, shadowOutside, show, hide, userInfo, userImage, userDesc, userName, userEmail, listOptions, option, logout, activeOption} = styles;
     const {picture, email/*, given_name*/, name} = you.userData;
-    const {push, pathname} = useRouter();
+    const {push} = useRouter(), pathname = usePathname();
     const {routes, sideuser, setSideuser} = useContext(ContextApp);
 
     function logoutFunction() {
@@ -19,9 +18,9 @@ function SidebarUser({you, anotherUsers, setLogin}) {
     return <aside className={`${sidebar} ${sideuser ? show : hide}`}>
         <main>
             <div className={userInfo}>
-                <button className={userImage}  onClick={() => setSideuser(!0)}>
+                <div className={userImage}>
                     <Image src={picture} height={64} width={64} alt={`Foto de ${name}`}/>
-                </button>
+                </div>
                 <span className={userDesc}>
                     <span className={userName}>{name}</span>
                     <span className={userEmail}>{email}</span>

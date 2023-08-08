@@ -45,7 +45,7 @@ function receiveSockets(socket, setUsers) {
 };
 
 function initializeLogin(parentButton, googleLoginButton, socket, setSocket, setUsers) {
-    console.log(window, typeof window);
+    if (!window.google) return;
     const {initialize, renderButton, prompt} = window.google.accounts.id,
         buttonStyles = {type: "standard", shape: "pill", theme: "filled_black", text: "AAAAAAAAAAAAAAAAAAAAAAAA", size: "large", logo_alignment: "left"};
 

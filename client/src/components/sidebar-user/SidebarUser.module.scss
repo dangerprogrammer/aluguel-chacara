@@ -8,6 +8,8 @@
 
     main {
         padding: 1rem 2rem;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
         height: 100%;
         background: #111531;
         display: flex;
@@ -71,7 +73,6 @@
     width: 4rem;
     background: transparent;
     overflow: hidden;
-    cursor: pointer;
     border: none;
 
     img {
@@ -110,7 +111,6 @@
 .listOptions {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
 }
 
 .option {
