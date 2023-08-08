@@ -1,5 +1,9 @@
 import styles from './LoginContent.module.scss';
 
+const metadata = {
+    title: 'Faça login para prosseguir'
+};
+
 function LoginContent() {
     const {loginContent} = styles;
 
@@ -10,5 +14,7 @@ function LoginContent() {
         </main>
     </div>
 };
+
+export {metadata};
 
 export default LoginContent;

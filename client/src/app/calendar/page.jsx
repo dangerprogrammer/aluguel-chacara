@@ -3,7 +3,7 @@
 import CalendarContent from "@/components/calendar-content/CalendarContent";
 import {ContextApp} from "@/components/context/ContextApp";
 import DefaultContent from "@/components/default-content/DefaultContent";
-import Redirect from "@/components/redirect/Redirect";
+import LoginContent from "@/components/login-content/LoginContent";
 import afterWindowLoaded from "@/scripts/afterWindowLoaded";
 import { useContext } from "react";
 
@@ -17,7 +17,7 @@ function Home() {
 
   return login ? <DefaultContent {...defaultArgs}>
     <CalendarContent {...calendarArgs}/>
-  </DefaultContent> : <Redirect to="/"/>
+  </DefaultContent> : <LoginContent/>
 };
 
 export default Home;

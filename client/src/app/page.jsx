@@ -5,7 +5,6 @@ import DefaultContent from "@/components/default-content/DefaultContent";
 import HomeContent from "@/components/home-content/HomeContent";
 import LoginContent from "@/components/login-content/LoginContent";
 import afterWindowLoaded from "@/scripts/afterWindowLoaded";
-import Head from "next/head";
 import { useContext } from "react";
 
 function Home() {
@@ -20,12 +19,7 @@ function Home() {
     <DefaultContent {...defaultArgs}>
       <HomeContent {...homeArgs}/>
     </DefaultContent>
-  </> : <>
-    <Head>
-      <title>Faça login para prosseguir</title>
-    </Head>
-    <LoginContent/>
-  </>
+  </> : <LoginContent/>
 };
 
 export default Home;
