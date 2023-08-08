@@ -1,10 +1,10 @@
-import styles from './HomeContent.module.scss';
-import {ContextApp} from "@/components/context/ContextApp";
+import { homeContent, homeTitle, gridPages, routeButton } from './HomeContent.module.scss';
+import { ContextApp } from "@/components/context/ContextApp";
 import { useRouter } from 'next/navigation';
 import { useContext } from "react";
 
 function HomeContent({users, socket}) {
-    const {homeContent, homeTitle, gridPages, routeButton} = styles, you = users.find(user => user.id == socket.id);
+    const you = users.find(user => user.id == socket.id);
     const {push} = useRouter();
 
     if (!socket || !you || !you.userData) return;

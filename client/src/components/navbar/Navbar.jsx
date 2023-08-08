@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './Navbar.module.scss';
+import { navbar, userImage, usersList, shadowNav } from './Navbar.module.scss';
 import UsersList from './UsersList';
 import { useContext } from "react";
 import { ContextApp } from '../context/ContextApp';
@@ -12,8 +12,6 @@ function Navbar(props) {
 };
 
 function NavbarComponent({you, anotherUsers, shadow}) {
-    const {navbar, userImage, usersList, shadowNav} = styles;
-
     const {picture, name} = you.userData;
     const {setSideuser} = useContext(ContextApp);
 

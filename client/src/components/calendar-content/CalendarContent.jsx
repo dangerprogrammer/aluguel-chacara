@@ -1,8 +1,6 @@
-import styles from './CalendarContent.module.scss';
+import {} from './CalendarContent.module.scss';
 
 function CalendarContent({users, socket}) {
-    const {} = styles;
-
     return <span>Calendário</span>
 };
 

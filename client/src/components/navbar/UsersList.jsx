@@ -1,8 +1,8 @@
-import styles from './UsersList.module.scss';
+import { userContainer, plusContent } from './UsersList.module.scss';
 import Image from "next/image";
 
 function UsersList({usersList}) {
-    const {userContainer, plusContent} = styles, sizePicture = 40;
+    const sizePicture = 40;
 
     if (!usersList.length || !usersList[usersList.length - 1].userData) return;
 
