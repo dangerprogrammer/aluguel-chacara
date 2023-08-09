@@ -1,10 +1,8 @@
 import { loginContent } from './LoginContent.module.scss';
 
-const metadata = {
-    title: 'Faça login para prosseguir'
-};
-
 function LoginContent() {
+    document.title = 'Faça login para prosseguir';
+
     return <div className={loginContent}>
         <main>
             <h1>Faça login para acessar outras guias</h1>
@@ -12,7 +10,5 @@ function LoginContent() {
         </main>
     </div>
 };
-
-export {metadata};
 
 export default LoginContent;

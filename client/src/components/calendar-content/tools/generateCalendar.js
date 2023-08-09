@@ -3,8 +3,8 @@ import calendarInfo from "./calendarInfo";
 class generateCalendar {
     constructor(options) {
         this.options = options;
-        this.minYear = 2000;
-        this.maxYear = 3000;
+        this.minYear = 2e3;
+        this.maxYear = 3e3;
     }
 
     drawCalendar(year = !1, month = !1, day = !1) {
