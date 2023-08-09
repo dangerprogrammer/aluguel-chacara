@@ -10,7 +10,7 @@ function Home() {
   const {socket, setSocket, login, setLogin, users, setUsers} = useContext(ContextApp),
     metaDados = {login, setLogin, socket, setSocket, setUsers, firstEmmit: !0};
 
-  setTimeout(() => window && afterWindowLoaded(metaDados), 10);
+  setTimeout(() => typeof window !== 'undefined' && afterWindowLoaded(metaDados), 10);
 
   return login ? <DefaultContent users={users} socket={socket} setLogin={setLogin}/> : <LoginContent/>
 };

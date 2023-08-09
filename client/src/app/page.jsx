@@ -13,7 +13,7 @@ function Home() {
     homeArgs = {users, socket},
     metaDados = {login, setLogin, socket, setSocket, setUsers, firstEmmit: !0};
 
-  setTimeout(() => window && afterWindowLoaded(metaDados), 10);
+  setTimeout(() => typeof window !== 'undefined' && afterWindowLoaded(metaDados), 10);
 
   return login ? <>
     <DefaultContent {...defaultArgs}>
